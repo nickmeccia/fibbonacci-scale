@@ -1,12 +1,8 @@
 module Fibbaaah
-  def self.fibs_with_offset(n)
-    Fibbonacci.new(n)
-  end
-
   def self.many_fibs_with_offset_from(options)
-    offset = options[:offset]
-    options[:starts]
-      .map    { |start| fibs_with_offset(start).fast_forward_to(offset) }
+    offset = options.fetch(:offset)
+    options.fetch(:starts) { [options.fetch(:start)] }
+      .map    { |start| Fibbonacci.new(start).fast_forward_to(offset) }
       .select { |fibs|  fibs.current == offset }
   end
 
