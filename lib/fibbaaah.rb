@@ -1,9 +1,12 @@
 module Fibbaaah
   def self.many_fibs_with_offset_from(options)
     offset = options.fetch(:offset)
-    options.fetch(:starts) { [options.fetch(:start)] }
-      .map    { |start| Fibbonacci.new(start).fast_forward_to(offset) }
-      .select { |fibs|  fibs.current == offset }
+    starts = options.fetch(:starts) { [options.fetch(:start)] }
+    buffer = options.fetch(:buffer, 0)
+
+    starts.map    { |start| Fibbonacci.new(start).fast_forward_to(offset) }
+          .select { |fibs|  fibs.current == offset }
+          .each   { |fibs|  fibs.regress buffer }
   end
 
   class Fibbonacci
@@ -31,10 +34,14 @@ module Fibbaaah
       @a + @n
     end
 
-    private
-
     def advance
       @a, @b = @a+@b, @a
+      self
+    end
+
+    def regress(n=1)
+      n.times { @a, @b = @b, @a-@b }
+      self
     end
   end
 end

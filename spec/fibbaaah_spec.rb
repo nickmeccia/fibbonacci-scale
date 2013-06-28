@@ -22,4 +22,10 @@ describe Fibbaaah do
        .map { |fibs| fibs.take 2 }
        .should == [[16, 29], [16, 24], [16, 21]]
   end
+
+  example 'with a buffer' do
+    call_many(starts: (-5..8), offset: 16, buffer: 2)
+      .map { |fibs| fibs.take 4 }
+      .should == [[3, 8, 16, 29], [8, 11, 16, 24]]
+  end
 end
