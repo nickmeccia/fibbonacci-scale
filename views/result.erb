@@ -1,0 +1,7 @@
+<% @nums.each do |fib_nums| %>
+  <div>
+    <% fib_nums.take(@num_to_show).reverse.each.with_index(1) do |fib, index| %>
+      <h<%= index %> style="font-size: <%= fib %>px">Header (<%= fib %>)</h1>
+    <% end %>
+  </div>
+<% end %>
